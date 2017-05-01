@@ -10,100 +10,121 @@ var T = new Twit({
     access_token_secret: 'ADBeBGshQsNk7zXN3PYCFfT5WsVLHPpjQo4uUMXL5i5HP',
     timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
 })
+
+
+//GET -> search by hashtag, location, user, etc
+//POST -> Post tweets
+//STREAM -> follows, you can @ them, mentions, you can @ them
+
 //
 //  search twitter for all tweets containing the word 'banana' since July 11, 2011
 //
-//this is a test
-var parameters = {
-    q: 'banana since:2011-07-11',
-    count: 2,
-    lang: 'es'
-
-}
-
+//var parameters = { 
+//    q: 'banana since:2011-07-11', 
+//    count: 2,
+//    lang: 'en'
+//    
+//}
+//
 //T.get('search/tweets', parameters, gotData);
-
-
+//
 //function gotData(err, data, response){
-
-//var tweets = data.statuses;
-
-//for(var i =0; i < tweets.length; i++){
-
-//console.log(data.statuses[i].text);
-
-// }
+//    
+//    var tweets = data.statuses;
+//    
+//    for(var i = 0; i < tweets.length; i++){
+//        
+//       console.log(tweets[i].text); 
+//    }
+//   
 //}
 
 
-
 //var tweet = { status: 'hello world!' }
-
-
-//T.post('statuses/update', tweet, gotData);
-
-
-
-
-
-//GET -> search by hastag, location, user, etc
-
-//POST -> Post tweets
-
-//STREAM -> follows, you can @ them, mentons you can @ them
+//
+//T.post('statuses/update', tweet , gotData);
 
 
 //POST TWEET
 tweetIt();
 
-//function tweetIt() {
-    //var r = Math.floor(Math.random() * 100);
+//setInterval(tweetIt, 1000*45);
 
-    //var tweet = {
-     //   status: 'Here is the current random number ' + r + '#providencehigh #phs #ecs # 2017 #pepsi'
-    //}
+function tweetIt() {
+    //Find a random real number from 0 to 1 and multiply by 100, and then round down
+    var r = Math.floor(Math.random() * 100);
 
+    var tweet = {
+        status: 'Here is the current random number ' + r + ' #providencehigh #phs #ecs #2017'
+    }
 
-   // T.post('statuses/update', tweet, gotData);
+    T.post('statuses/update', tweet, gotData);
 
-   // function gotData(err, data, response) {
-    //    if (err){
-    //        console.log('It posted!');
-   // } else {
-   //     console.log("It posted!");
-   // }
+    function gotData(err, data, response) {
+        if (err) {
+            console.log("Something went wrong!");
 
-  //  }
-//}
+        } else {
+            console.log("It posted!");
+        }
+    }
+}
+
+//STREAM FUNCTION 
+
+followTweet();
+
+function followTweet() {
+
+    var stream = T.stream('user');
+    //Anything someone follows me
+    stream.on('follow', followed);
+
+    function followed(eventMsg) {
+        var name = eventMsg.source.name;
+        var screenName = eventMsg.source.screen_name;
+        tweetIt2('@' + screenName + ' how do you do?');
+        
+        
+        
+        var fs = require('fs');
+        console.log('finished tweet json');
+    var json = JSON.stringify(eventMsg, null, 2);
+    fs.writeFile("tweet.json", json);
+    }
+}
+
+function tweetIt2(txt) {
+    var tweet = {
+        status: txt
+
+    }
+
+    T.post('statuses/update', tweet, tweeted);
+
+    function tweeted(err, data, response) {
+        if (err) {
+            console.log("Something went wrong!");
+        } else {
+            console.log("You were followed");
+        }
+
+    }
+
+}
+
 //var exec = require('child_process').exec;
-//var cmd = '"C:\Users\17VelezSchulze.eric\Desktop\P5ECS-Nick\lesson 20>C:\Users\17VelezSchulze.eric\Desktop\P5ECS-Nick\processing-3.3\processing-java.exe" --sketch="C:\Users\17VelezSchulze.eric\Desktop\P5ECS-Nick\lesson 20\sketch_170407a" --run';
-
-
-//var fs = require('fs');
-
+//var cmd = '"C:\Users\juan.lopez\Downloads\processing-3.3\processing-java.exe" --sketch="H:\P5ECS\Lesson 20\circlesketch" --run';
 //exec(cmd, processing);
 
-f//unction processing(){
-    
-    c//onsole.log('finished image');
-}
-@@ -120,14 +120,46 @@ function tweetIt2(txt) {
 
 
-
-
-
-
-function processing(eventMsg){
 var fs = require('fs');
 processing();
 function processing(){
     console.log("uploaded image");
-    var filename = 'AMERICA.jpg';
+    var filename = 'AMERICA.JPG';
     
-    console.log('finished image');
-    var json = JSON.stringify(eventMsg, null, 2);
-    fs.writeFile("tweet.json", json);
     var parameters = {
         encoding: 'base64'
     }
@@ -140,3 +161,7 @@ function processing(){
     }
 
 }
+
+
+
+
