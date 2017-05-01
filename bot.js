@@ -56,25 +56,25 @@ var parameters = {
 //POST TWEET
 tweetIt();
 
-function tweetIt() {
-    var r = Math.floor(Math.random() * 100);
+//function tweetIt() {
+    //var r = Math.floor(Math.random() * 100);
 
-    var tweet = {
-        status: 'Here is the current random number ' + r + '#providencehigh #phs #ecs # 2017 #pepsi'
-    }
+    //var tweet = {
+     //   status: 'Here is the current random number ' + r + '#providencehigh #phs #ecs # 2017 #pepsi'
+    //}
 
 
-    T.post('statuses/update', tweet, gotData);
+   // T.post('statuses/update', tweet, gotData);
 
-    function gotData(err, data, response) {
-        if (err){
-            console.log('It posted!');
-    } else {
-        console.log("It posted!");
-    }
+   // function gotData(err, data, response) {
+    //    if (err){
+    //        console.log('It posted!');
+   // } else {
+   //     console.log("It posted!");
+   // }
 
-    }
-}
+  //  }
+//}
 //var exec = require('child_process').exec;
 //var cmd = '"C:\Users\17VelezSchulze.eric\Desktop\P5ECS-Nick\lesson 20>C:\Users\17VelezSchulze.eric\Desktop\P5ECS-Nick\processing-3.3\processing-java.exe" --sketch="C:\Users\17VelezSchulze.eric\Desktop\P5ECS-Nick\lesson 20\sketch_170407a" --run';
 
