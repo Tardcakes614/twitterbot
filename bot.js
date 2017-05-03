@@ -46,29 +46,29 @@ var T = new Twit({
 
 
 //POST TWEET
-tweetIt();
+//tweetIt();
 
 //setInterval(tweetIt, 1000*45);
 
-function tweetIt() {
+//function tweetIt() {
     //Find a random real number from 0 to 1 and multiply by 100, and then round down
-    var r = Math.floor(Math.random() * 100);
+   // var r = Math.floor(Math.random() * 100);
 
-    var tweet = {
-        status: 'Here is the current random number ' + r + ' #providencehigh #phs #ecs #2017'
-    }
+   // var tweet = {
+   //     status: 'Here is the current random number ' + r + ' #providencehigh #phs #ecs #2017'
+   // }
 
-    T.post('statuses/update', tweet, gotData);
+   // T.post('statuses/update', tweet, gotData);
 
-    function gotData(err, data, response) {
-        if (err) {
-            console.log("Something went wrong!");
+   // function gotData(err, data, response) {
+      //  if (err) {
+     //       console.log("Something went wrong!");
 
-        } else {
-            console.log("It posted!");
-        }
-    }
-}
+      //  } else {
+       //     console.log("It posted!");
+       // }
+   // }
+//}
 
 //STREAM FUNCTION 
 
@@ -83,7 +83,7 @@ function followTweet() {
     function followed(eventMsg) {
         var name = eventMsg.source.name;
         var screenName = eventMsg.source.screen_name;
-        tweetIt2('@' + screenName + ' how do you do?');
+        tweetIt2('@' + screenName + ' WELCOME FELLOW PATRIOT, TOGETHER WE CAN DESTROY THE COMMIE SCUM!!!!!!!');
         
         
         
