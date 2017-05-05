@@ -140,7 +140,7 @@ function processing(){
         var id = data.media_id_string;
         var tweet = {
             
-            status: '#ECS2017 live from node.js',
+            status: '#AMERICA',
             media_ids: [id]
         }
         
