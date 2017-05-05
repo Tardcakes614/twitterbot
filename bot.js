@@ -8,7 +8,7 @@ var T = new Twit({
     consumer_secret: 'E5AcediTFfDVE8KxdC7AIbeGJcIugxG4DBq52ARKgs8csA4Cdo',
     access_token: '847899153543815168-hX7zY7C3MWoBomTfZzv6ekJDU9Bjv4D',
     access_token_secret: 'ADBeBGshQsNk7zXN3PYCFfT5WsVLHPpjQo4uUMXL5i5HP',
-    timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
+    timeout_ms: 60 * 1, // optional HTTP request timeout to apply to all requests.
 })
 
 
