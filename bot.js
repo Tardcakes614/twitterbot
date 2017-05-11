@@ -8,7 +8,7 @@ var T = new Twit({
     consumer_secret: 'E5AcediTFfDVE8KxdC7AIbeGJcIugxG4DBq52ARKgs8csA4Cdo',
     access_token: '847899153543815168-hX7zY7C3MWoBomTfZzv6ekJDU9Bjv4D',
     access_token_secret: 'ADBeBGshQsNk7zXN3PYCFfT5WsVLHPpjQo4uUMXL5i5HP',
-    timeout_ms: 60 * 1, // optional HTTP request timeout to apply to all requests.
+    timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
 })
 
 
@@ -17,32 +17,98 @@ var T = new Twit({
 //STREAM -> follows, you can @ them, mentions, you can @ them
 
 //
-//  search twitter for all tweets containing the word 'banana' since July 11, 2011
+// search twitter for all tweets containing the word 'banana' since July 11, 2011
 //
-//var parameters = { 
-//    q: 'banana since:2011-07-11', 
-//    count: 2,
-//    lang: 'en'
-//    
-//}
-//
+var tweets;
+
+var parameters = { 
+   q: 'banana since:2011-07-11', 
+   count: 2,
+    lang: 'en'
+    
+}
+
 //T.get('search/tweets', parameters, gotData);
 //
 //function gotData(err, data, response){
 //    
-//    var tweets = data.statuses;
+// tweets = data.statuses;
 //    
 //    for(var i = 0; i < tweets.length; i++){
 //        
-//       console.log(tweets[i].text); 
+//       console.log(tweets[i].id); 
 //    }
 //   
 //}
+retweet();
+function retweet(){
+   T.get('search/tweets', parameters, found);
+
+function found(err, data, response){
+    
+ tweets = data.statuses;
+    
+    for(var i = 0; i < tweets.length; i++){
+        
+       console.log(tweets[i].id);
+         
+        var idt = tweets[i];
+    
+    var tweet = {id: idt};   
+ 
+    T.post('statuses/retweet/:id', tweet , repost); 
+        function repost(err, data, response){
+            
+            if (err){
+                console.log("retweet did bad!");
+            }else{
+                console.log("retweet did good!");
+            }
+            
+            
+        }
+   
+    
+    }
+   
+}
+}
+    
+    
+//    var idt = tweets[0];
+//    
+//    var tweet = {id: idt};   
+// 
+//    T.post('statuses/retweet/:id', tweet , gotData);   
+//    
+//    function gotData(err, data, response){
+//            
+//            if (err){
+//                console.log("retweet did bad!");
+//            }else{
+//                console.log("retweet did good!");
+//            }
+//            
+//            
+//        }
+//   
+//    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 //var tweet = { status: 'hello world!' }
 //
-//T.post('statuses/update', tweet , gotData);
+
 
 
 //POST TWEET
@@ -72,7 +138,7 @@ var T = new Twit({
 
 //STREAM FUNCTION 
 
-followTweet();
+//followTweet();
 
 function followTweet() {
 
@@ -94,24 +160,24 @@ function followTweet() {
     }
 }
 
-function tweetIt2(txt) {
-    var tweet = {
-        status: txt
-
-    }
-
-    T.post('statuses/update', tweet, tweeted);
-
-    function tweeted(err, data, response) {
-        if (err) {
-            console.log("Something went wrong!");
-        } else {
-            console.log("You were followed");
-        }
-
-    }
-
-}
+//function tweetIt2(txt) {
+//    var tweet = {
+//        status: txt
+//
+//    }
+//
+//    T.post('statuses/update', tweet, tweeted);
+//
+//    function tweeted(err, data, response) {
+//        if (err) {
+//            console.log("Something went wrong!");
+//        } else {
+//            console.log("You were followed");
+//        }
+//
+//    }
+//
+//}
 
 //var exec = require('child_process').exec;
 //var cmd = '"C:\Users\juan.lopez\Downloads\processing-3.3\processing-java.exe" --sketch="H:\P5ECS\Lesson 20\circlesketch" --run';
@@ -120,7 +186,7 @@ function tweetIt2(txt) {
 
 
 var fs = require('fs');
-processing();
+//processing();
 function processing(){
     console.log("uploaded image");
     var filename = 'pictures/AMERICA.JPG';
