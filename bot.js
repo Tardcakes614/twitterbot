@@ -22,7 +22,7 @@ var T = new Twit({
 var tweets;
 
 var parameters = { 
-   q: 'banana since:2011-07-11', 
+   q: 'meme since:2017-05-11', 
    count: 2,
     lang: 'en'
     
@@ -52,11 +52,13 @@ function found(err, data, response){
         
        console.log(tweets[i].id);
          
-        var idt = tweets[i];
-    
-    var tweet = {id: idt};   
+        var idt = tweets[i].id;
+        console.log("this is the idt, " +idt);
+    var notidt = "'"+idt+"'";
+        console.log(notidt);
+    var tweet = {id: '862791015882797000'};   
  
-    T.post('statuses/retweet/:id', tweet , repost); 
+    T.post('statuses/retweet/:id', {id: '343360866131001345'} , repost); 
         function repost(err, data, response){
             
             if (err){
