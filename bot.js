@@ -28,12 +28,12 @@ var T = new Twit({
 //
 var tweets;
 
-var parameters = { 
-   q: 'meme since:2017-05-11', 
-   count: 2,
+var parameters = {
+    q: 'meme since:2017-05-11',
+    count: 1,
 
     lang: 'en'
-    
+
 }
 
 
@@ -52,43 +52,49 @@ var parameters = {
 //   
 //}
 retweet();
-setInterval(retweet, 1000*200);
-function retweet(){
-   T.get('search/tweets', parameters, found);
+setInterval(retweet, 1000 * 200);
 
-function found(err, data, response){
-    
- tweets = data.statuses;
-    
-    for(var i = 0; i < tweets.length; i++){
-        
-       console.log(tweets[i].id);
-         
-        var idt = tweets[i].id_str;
-        console.log("this is the idt, " +idt);
-    
-        
-    var tweet = {id: '862791015882797000'};   
- 
-    T.post('statuses/retweet/:id', {id:idt} , repost); 
-        function repost(err, data, response){
-            
-            if (err){
-                console.log("retweet did bad!");
-            }else{
-                console.log("retweet did good!");
+function retweet() {
+    T.get('search/tweets', parameters, found);
+
+    function found(err, data, response) {
+
+        tweets = data.statuses;
+
+        for (var i = 0; i < tweets.length; i++) {
+
+            console.log(tweets[i].id);
+
+            var idt = tweets[i].id_str;
+            console.log("this is the idt, " + idt);
+
+
+            var tweet = {
+                id: '862791015882797000'
+            };
+
+            T.post('statuses/retweet/:id', {
+                id: idt
+            }, repost);
+
+            function repost(err, data, response) {
+
+                if (err) {
+                    console.log("retweet did bad!");
+                } else {
+                    console.log("retweet did good!");
+                }
+
+
             }
-            
-            
+
+
         }
-   
-    
+
     }
-   
 }
-}
-    
-    
+
+
 //    var idt = tweets[0];
 //    
 //    var tweet = {id: idt};   
@@ -116,11 +122,6 @@ function found(err, data, response){
 
 
 
-
-
-
-
-
 //var tweet = { status: 'hello world!' }
 //
 
@@ -132,23 +133,23 @@ function found(err, data, response){
 //setInterval(tweetIt, 1000*45);
 
 //function tweetIt() {
-    //Find a random real number from 0 to 1 and multiply by 100, and then round down
-   // var r = Math.floor(Math.random() * 100);
+//Find a random real number from 0 to 1 and multiply by 100, and then round down
+// var r = Math.floor(Math.random() * 100);
 
-   // var tweet = {
-   //     status: 'Here is the current random number ' + r + ' #providencehigh #phs #ecs #2017'
-   // }
+// var tweet = {
+//     status: 'Here is the current random number ' + r + ' #providencehigh #phs #ecs #2017'
+// }
 
-   // T.post('statuses/update', tweet, gotData);
+// T.post('statuses/update', tweet, gotData);
 
-   // function gotData(err, data, response) {
-      //  if (err) {
-     //       console.log("Something went wrong!");
+// function gotData(err, data, response) {
+//  if (err) {
+//       console.log("Something went wrong!");
 
-      //  } else {
-       //     console.log("It posted!");
-       // }
-   // }
+//  } else {
+//     console.log("It posted!");
+// }
+// }
 //}
 
 //STREAM FUNCTION 
@@ -165,13 +166,13 @@ function followTweet() {
         var name = eventMsg.source.name;
         var screenName = eventMsg.source.screen_name;
         tweetIt2('@' + screenName + ' WELCOME FELLOW PATRIOT, TOGETHER WE CAN DESTROY THE COMMIE SCUM!!!!!!!');
-        
-        
-        
+
+
+
         var fs = require('fs');
         console.log('finished tweet json');
-    var json = JSON.stringify(eventMsg, null, 2);
-    fs.writeFile("tweet.json", json);
+        var json = JSON.stringify(eventMsg, null, 2);
+        fs.writeFile("tweet.json", json);
     }
 }
 
@@ -269,47 +270,48 @@ function tweetIt2(txt) {
 
 var fs = require('fs');
 //processing();
-function processing(){
+function processing() {
     console.log("uploaded image");
     var filename = 'pictures/AMERICA.JPG';
-    
+
     var parameters = {
         encoding: 'base64'
     }
-    
+
     var b64 = fs.readFileSync(filename, parameters);
-    
+
     //i have to upload before i can tweet it
-    T.post('media/upload', {media_data: b64}, uploaded);
-    
-    function uploaded(err, data, response){
+    T.post('media/upload', {
+        media_data: b64
+    }, uploaded);
+
+    function uploaded(err, data, response) {
         //This is where I will tweet! 
         //My picture has a unique ID
         var id = data.media_id_string;
         var tweet = {
-            
+
             status: '#AMERICA',
             media_ids: [id]
         }
-        
-        
+
+
         T.post('statuses/update', tweet, tweeted);
-        
-        function tweeted(err, data, response){
-            
-            if (err){
+
+        function tweeted(err, data, response) {
+
+            if (err) {
                 console.log("Something went wrong!");
-            }else{
+            } else {
                 console.log("It posted!");
             }
-            
-            
+
+
         }
-        
+
     }
 
 }
-
 
 
 
