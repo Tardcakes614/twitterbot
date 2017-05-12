@@ -17,13 +17,13 @@ var T = new Twit({
 //STREAM -> follows, you can @ them, mentions, you can @ them
 
 //
-<<<<<<< HEAD
+
 //  search twitter for all tweets containing the word 'banana' since July 11, 2011
 //
-var parameters = { 
-    q: 'apple since:2011-07-11', 
-    count: 2,
-=======
+//var parameters = { 
+//    q: 'apple since:2011-07-11', 
+//    count: 2,
+
 // search twitter for all tweets containing the word 'banana' since July 11, 2011
 //
 var tweets;
@@ -31,25 +31,14 @@ var tweets;
 var parameters = { 
    q: 'meme since:2017-05-11', 
    count: 2,
->>>>>>> origin/master
+
     lang: 'en'
     
 }
 
-<<<<<<< HEAD
-T.get('search/tweets', parameters, gotData);
 
-function gotData(err, data, response){
-    
-    var tweets = data.statuses;
-    
-    for(var i = 0; i < tweets.length; i++){
-        
-       console.log(tweets[i].text); 
-    }
-   
-}
-=======
+
+
 //T.get('search/tweets', parameters, gotData);
 //
 //function gotData(err, data, response){
@@ -63,6 +52,7 @@ function gotData(err, data, response){
 //   
 //}
 retweet();
+setInterval(retweet, 1000*200);
 function retweet(){
    T.get('search/tweets', parameters, found);
 
@@ -74,13 +64,13 @@ function found(err, data, response){
         
        console.log(tweets[i].id);
          
-        var idt = tweets[i].id;
+        var idt = tweets[i].id_str;
         console.log("this is the idt, " +idt);
-    var notidt = "'"+idt+"'";
-        console.log(notidt);
+    
+        
     var tweet = {id: '862791015882797000'};   
  
-    T.post('statuses/retweet/:id', {id: '343360866131001345'} , repost); 
+    T.post('statuses/retweet/:id', {id:idt} , repost); 
         function repost(err, data, response){
             
             if (err){
@@ -128,7 +118,7 @@ function found(err, data, response){
 
 
 
->>>>>>> origin/master
+
 
 
 //var tweet = { status: 'hello world!' }
@@ -185,7 +175,7 @@ function followTweet() {
     }
 }
 
-<<<<<<< HEAD
+
 
 
 function tweetIt2(txt) {
@@ -206,7 +196,7 @@ function tweetIt2(txt) {
     }
 
 }
-=======
+
 //function tweetIt2(txt) {
 //    var tweet = {
 //        status: txt
@@ -225,7 +215,7 @@ function tweetIt2(txt) {
 //    }
 //
 //}
->>>>>>> origin/master
+
 
 //var exec = require('child_process').exec;
 //var cmd = '"C:\Users\juan.lopez\Downloads\processing-3.3\processing-java.exe" --sketch="H:\P5ECS\Lesson 20\circlesketch" --run';
@@ -233,7 +223,7 @@ function tweetIt2(txt) {
 
 
 
-<<<<<<< HEAD
+
 //var fs = require('fs');
 //processing();
 //function processing(){
@@ -276,7 +266,7 @@ function tweetIt2(txt) {
 //    }
 //
 //}
-=======
+
 var fs = require('fs');
 //processing();
 function processing(){
@@ -319,7 +309,7 @@ function processing(){
     }
 
 }
->>>>>>> origin/master
+
 
 
 
