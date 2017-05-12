@@ -19,25 +19,25 @@ var T = new Twit({
 //
 //  search twitter for all tweets containing the word 'banana' since July 11, 2011
 //
-//var parameters = { 
-//    q: 'banana since:2011-07-11', 
-//    count: 2,
-//    lang: 'en'
-//    
-//}
-//
-//T.get('search/tweets', parameters, gotData);
-//
-//function gotData(err, data, response){
-//    
-//    var tweets = data.statuses;
-//    
-//    for(var i = 0; i < tweets.length; i++){
-//        
-//       console.log(tweets[i].text); 
-//    }
-//   
-//}
+var parameters = { 
+    q: 'apple since:2011-07-11', 
+    count: 2,
+    lang: 'en'
+    
+}
+
+T.get('search/tweets', parameters, gotData);
+
+function gotData(err, data, response){
+    
+    var tweets = data.statuses;
+    
+    for(var i = 0; i < tweets.length; i++){
+        
+       console.log(tweets[i].text); 
+    }
+   
+}
 
 
 //var tweet = { status: 'hello world!' }
@@ -94,6 +94,8 @@ function followTweet() {
     }
 }
 
+
+
 function tweetIt2(txt) {
     var tweet = {
         status: txt
@@ -119,48 +121,48 @@ function tweetIt2(txt) {
 
 
 
-var fs = require('fs');
-processing();
-function processing(){
-    console.log("uploaded image");
-    var filename = 'pictures/AMERICA.JPG';
-    
-    var parameters = {
-        encoding: 'base64'
-    }
-    
-    var b64 = fs.readFileSync(filename, parameters);
-    
-    //i have to upload before i can tweet it
-    T.post('media/upload', {media_data: b64}, uploaded);
-    
-    function uploaded(err, data, response){
-        //This is where I will tweet! 
-        //My picture has a unique ID
-        var id = data.media_id_string;
-        var tweet = {
-            
-            status: '#AMERICA',
-            media_ids: [id]
-        }
-        
-        
-        T.post('statuses/update', tweet, tweeted);
-        
-        function tweeted(err, data, response){
-            
-            if (err){
-                console.log("Something went wrong!");
-            }else{
-                console.log("It posted!");
-            }
-            
-            
-        }
-        
-    }
-
-}
+//var fs = require('fs');
+//processing();
+//function processing(){
+//    console.log("uploaded image");
+//    var filename = 'pictures/AMERICA.JPG';
+//    
+//    var parameters = {
+//        encoding: 'base64'
+//    }
+//    
+//    var b64 = fs.readFileSync(filename, parameters);
+//    
+//    //i have to upload before i can tweet it
+//    T.post('media/upload', {media_data: b64}, uploaded);
+//    
+//    function uploaded(err, data, response){
+//        //This is where I will tweet! 
+//        //My picture has a unique ID
+//        var id = data.media_id_string;
+//        var tweet = {
+//            
+//            status: '#AMERICA',
+//            media_ids: [id]
+//        }
+//        
+//        
+//        T.post('statuses/update', tweet, tweeted);
+//        
+//        function tweeted(err, data, response){
+//            
+//            if (err){
+//                console.log("Something went wrong!");
+//            }else{
+//                console.log("It posted!");
+//            }
+//            
+//            
+//        }
+//        
+//    }
+//
+//}
 
 
 
